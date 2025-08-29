@@ -24,28 +24,22 @@ export default function DocumentUpload({ onUploadComplete }: DocumentUploadProps
   const [uploadProgress, setUploadProgress] = useState(0)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
-    if (!file) return
-
+  const uploadFile = async (file: File) => {
     setUploading(true)
     setError('')
     setSuccess('')
     setUploadProgress(0)
 
     try {
-      // Get current user session
       const { data: { session } } = await supabase.auth.getSession()
       
       if (!session) {
         throw new Error('No authenticated session found')
       }
 
-      // Create FormData for file upload
       const formData = new FormData()
       formData.append('file', file)
 
-      // Upload to backend API
       const response = await fetch(`${getApiUrl()}/documents/upload`, {
         method: 'POST',
         headers: {
@@ -55,8 +49,12 @@ export default function DocumentUpload({ onUploadComplete }: DocumentUploadProps
       })
 
       if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.detail || 'Upload failed')
+        let errorDetail = 'Upload failed'
+        try {
+          const errorData = await response.json()
+          if (errorData?.detail) errorDetail = errorData.detail
+        } catch {}
+        throw new Error(errorDetail)
       }
 
       const uploadedFile = await response.json() as UploadedFile
@@ -64,12 +62,10 @@ export default function DocumentUpload({ onUploadComplete }: DocumentUploadProps
       setSuccess(`File "${file.name}" uploaded successfully!`)
       setUploadProgress(100)
       
-      // Reset file input
       if (fileInputRef.current) {
         fileInputRef.current.value = ''
       }
 
-      // Call completion callback
       if (onUploadComplete) {
         onUploadComplete(uploadedFile)
       }
@@ -79,13 +75,19 @@ export default function DocumentUpload({ onUploadComplete }: DocumentUploadProps
       setUploadProgress(0)
     } finally {
       setUploading(false)
-      // Clear messages after 5 seconds
       setTimeout(() => {
         setError('')
         setSuccess('')
         setUploadProgress(0)
       }, 5000)
     }
+  }
+
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+
+    await uploadFile(file)
   }
 
   const handleDragOver = (e: React.DragEvent) => {
