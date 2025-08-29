@@ -3,7 +3,7 @@
 ## 🎯 Overview
 
 Your frontend is now configured to work with your deployed backend at:
-**https://backend-theta-dusky-43.vercel.app**
+**https://backend-ya9i.onrender.com**
 
 ## 📋 What's Been Configured
 
@@ -39,7 +39,7 @@ chmod +x deploy.sh
 
 The following environment variables are automatically configured:
 
-- **`NEXT_PUBLIC_API_URL`**: `https://backend-theta-dusky-43.vercel.app`
+- **`NEXT_PUBLIC_API_URL`**: `https://backend-ya9i.onrender.com`
 
 ### Optional Variables (Set in Vercel Dashboard)
 If you're using Supabase directly in the frontend:
@@ -58,8 +58,8 @@ Once deployed, test these features:
 ## 🔗 Expected Architecture
 
 ```
-Frontend (Vercel) ←→ Backend (Vercel) ←→ Supabase
-Your-Frontend-URL     backend-theta-dusky-43     Your-Supabase-DB
+Frontend (Vercel) ←→ Backend (Render) ←→ Supabase
+Your-Frontend-URL     backend-ya9i.onrender.com     Your-Supabase-DB
 ```
 
 ## 📊 Key Features

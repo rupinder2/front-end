@@ -2,7 +2,7 @@
   "version": 2,
   "framework": "nextjs",
   "env": {
-    "NEXT_PUBLIC_API_URL": "https://backend-theta-dusky-43.vercel.app"
+    "NEXT_PUBLIC_API_URL": "https://backend-ya9i.onrender.com"
   },
   "headers": [
     {

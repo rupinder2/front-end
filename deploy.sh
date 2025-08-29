@@ -16,7 +16,7 @@ vercel --prod
 echo "✅ Frontend deployment complete!"
 echo ""
 echo "🔗 Your frontend should now be live and connected to:"
-echo "   Backend API: https://backend-theta-dusky-43.vercel.app"
+echo "   Backend API: https://backend-ya9i.onrender.com"
 echo ""
 echo "📝 Optional: Set additional environment variables in Vercel dashboard:"
 echo "   - NEXT_PUBLIC_SUPABASE_URL (if using Supabase on frontend)"

@@ -6,7 +6,7 @@
 export function getApiUrl(): string {
   // In production, use the deployed backend URL
   if (process.env.NODE_ENV === 'production') {
-    return process.env.NEXT_PUBLIC_API_URL || 'https://backend-theta-dusky-43.vercel.app'
+    return process.env.NEXT_PUBLIC_API_URL || 'https://backend-ya9i.onrender.com'
   }
   
   // In development, use the configured URL or fallback to proxy
