@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react'
 import { supabase } from '@/lib/supabase'
+import { getApiUrl } from '@/lib/api'
 
 interface UploadedFile {
   id: string
@@ -45,7 +46,7 @@ export default function DocumentUpload({ onUploadComplete }: DocumentUploadProps
       formData.append('file', file)
 
       // Upload to backend API
-      const response = await fetch('/api/documents/upload', {
+      const response = await fetch(`${getApiUrl()}/documents/upload`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${session.access_token}`

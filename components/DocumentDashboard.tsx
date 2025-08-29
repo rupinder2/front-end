@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 import DocumentUpload from './DocumentUpload'
+import { getApiUrl } from '@/lib/api'
 
 interface Document {
   id: string
@@ -62,7 +63,7 @@ export default function DocumentDashboard() {
         params.append('file_type', selectedFileType)
       }
 
-      const response = await fetch(`/api/documents?${params}`, {
+      const response = await fetch(`${getApiUrl()}/documents?${params}`, {
         headers: {
           'Authorization': `Bearer ${session.access_token}`
         }
@@ -97,7 +98,7 @@ export default function DocumentDashboard() {
         throw new Error('No authenticated session found')
       }
 
-      const response = await fetch(`/api/documents/${documentId}`, {
+      const response = await fetch(`${getApiUrl()}/documents/${documentId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${session.access_token}`
@@ -144,7 +145,7 @@ export default function DocumentDashboard() {
         throw new Error('No authenticated session found')
       }
 
-      const response = await fetch('/api/documents/bulk-delete', {
+      const response = await fetch(`${getApiUrl()}/documents/bulk-delete`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${session.access_token}`,
@@ -204,7 +205,7 @@ export default function DocumentDashboard() {
         throw new Error('No authenticated session found')
       }
 
-      const response = await fetch(`/api/documents/${documentId}/download`, {
+      const response = await fetch(`${getApiUrl()}/documents/${documentId}/download`, {
         headers: {
           'Authorization': `Bearer ${session.access_token}`
         }

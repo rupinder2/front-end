@@ -1,12 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: 'http://localhost:8000/api/:path*', // Proxy to Backend
-      },
-    ]
+    // Only proxy in development - in production we'll use NEXT_PUBLIC_API_URL
+    if (process.env.NODE_ENV === 'development') {
+      return [
+        {
+          source: '/api/:path*',
+          destination: 'http://localhost:8000/api/:path*', // Proxy to Backend
+        },
+      ]
+    }
+    return []
   },
 }
 
