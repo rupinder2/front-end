@@ -65,7 +65,7 @@ export default function ReadmePage({ user, onSignOut }: ReadmePageProps) {
                 📚 Documentation
               </h1>
               <p className="mt-2 text-gray-600">
-                Learn about the architecture and implementation of this document management system
+                Learn about the architecture and implementation of this library management system
               </p>
             </div>
             <div className="text-right">
@@ -87,8 +87,8 @@ export default function ReadmePage({ user, onSignOut }: ReadmePageProps) {
               </svg>
             </div>
             <div>
-              <h2 className="text-xl font-bold text-gray-900">Document Management System</h2>
-              <p className="text-gray-600">A full-stack application for secure document upload, processing, and management</p>
+              <h2 className="text-xl font-bold text-gray-900">Library Management System</h2>
+              <p className="text-gray-600">A full-stack application for library book management, recommendations, and user checkouts</p>
             </div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
@@ -159,19 +159,19 @@ export default function ReadmePage({ user, onSignOut }: ReadmePageProps) {
                   </li>
                   <li className="flex items-start">
                     <span className="text-green-500 mr-2">✓</span>
-                    <span><strong>Document Management:</strong> Upload, view, download, and delete documents</span>
+                    <span><strong>Book Management:</strong> Add, edit, view, and manage library books with cover images</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-green-500 mr-2">✓</span>
-                    <span><strong>File Processing:</strong> Automatic file type detection and metadata extraction</span>
+                    <span><strong>AI-Powered Recommendations:</strong> Smart book recommendations based on reading history</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-green-500 mr-2">✓</span>
-                    <span><strong>Bulk Operations:</strong> Select and manage multiple documents at once</span>
+                    <span><strong>Check-in/Check-out System:</strong> Track book lending with due dates and notifications</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-green-500 mr-2">✓</span>
-                    <span><strong>Search & Filtering:</strong> Find documents quickly with search and file type filters</span>
+                    <span><strong>Search & Filtering:</strong> Find books quickly with search and genre filters</span>
                   </li>
                 </ul>
               </div>
@@ -181,12 +181,14 @@ export default function ReadmePage({ user, onSignOut }: ReadmePageProps) {
                 <div className="bg-gray-50 p-4 rounded-lg">
                   <pre className="text-sm text-gray-800 overflow-x-auto">
 {`📁 components/
-├── AuthForm.tsx          # Authentication form
-├── DocumentDashboard.tsx # Main document management
-├── DocumentUpload.tsx    # File upload component
-├── HomePage.tsx         # Main layout wrapper
-├── Navbar.tsx           # Navigation header
-└── ReadmePage.tsx       # This documentation`}
+├── AuthForm.tsx           # Authentication form
+├── BookForm.tsx          # Add/edit book form
+├── LibraryDashboard.tsx  # Main library management
+├── RecommendationsPanel.tsx # AI recommendations
+├── UserCheckouts.tsx     # User checkout management
+├── HomePage.tsx          # Main layout wrapper
+├── Navbar.tsx            # Navigation header
+└── ReadmePage.tsx        # This documentation`}
                   </pre>
                 </div>
               </div>
@@ -252,15 +254,16 @@ export default function ReadmePage({ user, onSignOut }: ReadmePageProps) {
                       </div>
                     </div>
                     <div>
-                      <div className="font-medium text-gray-900 mt-3">Documents</div>
+                      <div className="font-medium text-gray-900 mt-3">Books</div>
                       <div className="text-sm text-gray-600 mt-1">
-                        <code className="bg-white px-2 py-1 rounded">POST /api/documents</code> - Upload document<br/>
-                        <code className="bg-white px-2 py-1 rounded">GET /api/documents</code> - List documents<br/>
-                        <code className="bg-white px-2 py-1 rounded">GET /api/documents/{'{'}id{'}'}</code> - Get document<br/>
-                        <code className="bg-white px-2 py-1 rounded">PUT /api/documents/{'{'}id{'}'}</code> - Update document<br/>
-                        <code className="bg-white px-2 py-1 rounded">DELETE /api/documents/{'{'}id{'}'}</code> - Delete document<br/>
-                        <code className="bg-white px-2 py-1 rounded">GET /api/documents/{'{'}id{'}'}/download</code> - Download document<br/>
-                        <code className="bg-white px-2 py-1 rounded">POST /api/documents/bulk-delete</code> - Delete multiple documents
+                        <code className="bg-white px-2 py-1 rounded">POST /api/books</code> - Add new book<br/>
+                        <code className="bg-white px-2 py-1 rounded">GET /api/books</code> - List books<br/>
+                        <code className="bg-white px-2 py-1 rounded">GET /api/books/{'{'}id{'}'}</code> - Get book details<br/>
+                        <code className="bg-white px-2 py-1 rounded">PUT /api/books/{'{'}id{'}'}</code> - Update book<br/>
+                        <code className="bg-white px-2 py-1 rounded">DELETE /api/books/{'{'}id{'}'}</code> - Delete book<br/>
+                        <code className="bg-white px-2 py-1 rounded">POST /api/books/{'{'}id{'}'}/checkout</code> - Checkout book<br/>
+                        <code className="bg-white px-2 py-1 rounded">POST /api/books/{'{'}id{'}'}/checkin</code> - Return book<br/>
+                        <code className="bg-white px-2 py-1 rounded">GET /api/books/recommendations</code> - Get AI recommendations
                       </div>
                     </div>
                   </div>
@@ -277,15 +280,15 @@ export default function ReadmePage({ user, onSignOut }: ReadmePageProps) {
 ├── supabase_client.py   # Supabase client setup
 ├── models/              # Pydantic data models
 │   ├── user.py
-│   └── document.py
+│   └── book.py
 ├── routers/             # API route handlers
 │   ├── auth.py          # Authentication endpoints
-│   └── documents.py     # Document management endpoints
+│   └── books.py         # Book management endpoints
 ├── auth/                # Authentication logic
 │   ├── dependencies.py  # JWT validation
 │   └── jwt_handler.py   # JWT token handling
 └── services/            # Business logic services
-    └── file_processor.py # File processing logic`}
+    └── ai_service.py    # AI recommendation service`}
                   </pre>
                 </div>
               </div>
@@ -328,18 +331,23 @@ export default function ReadmePage({ user, onSignOut }: ReadmePageProps) {
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-3">Supabase Database Schema</h3>
                 <div className="bg-gray-50 p-4 rounded-lg">
-                  <h4 className="font-medium text-gray-900 mb-2">document_metadata Table</h4>
+                  <h4 className="font-medium text-gray-900 mb-2">books Table</h4>
                   <pre className="text-sm text-gray-800 overflow-x-auto">
-{`CREATE TABLE document_metadata (
+{`CREATE TABLE books (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  user_id UUID NOT NULL,
-  file_name VARCHAR NOT NULL,
-  original_name VARCHAR NOT NULL,
-  file_size BIGINT NOT NULL,
-  mime_type VARCHAR NOT NULL,
-  storage_path VARCHAR NOT NULL,
-  upload_status VARCHAR DEFAULT 'uploading',
-  metadata JSONB DEFAULT '{}',
+  title VARCHAR NOT NULL,
+  author VARCHAR NOT NULL,
+  isbn VARCHAR,
+  genre VARCHAR NOT NULL,
+  publication_year INTEGER,
+  description TEXT,
+  cover_image_url VARCHAR,
+  status VARCHAR DEFAULT 'available',
+  condition VARCHAR DEFAULT 'good',
+  added_by UUID NOT NULL,
+  checked_out_by UUID,
+  checked_out_at TIMESTAMP WITH TIME ZONE,
+  due_date TIMESTAMP WITH TIME ZONE,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );`}
@@ -353,33 +361,33 @@ export default function ReadmePage({ user, onSignOut }: ReadmePageProps) {
                   <div className="bg-blue-50 p-4 rounded-lg">
                     <div className="font-medium text-blue-900">Supabase Storage</div>
                     <div className="text-sm text-blue-700 mt-1">
-                      • File storage in cloud<br/>
+                      • Book cover image storage<br/>
                       • Automatic CDN delivery<br/>
-                      • Signed URLs for security<br/>
-                      • User-scoped file organization
+                      • Public URLs for covers<br/>
+                      • Optimized image serving
                     </div>
                   </div>
                   <div className="bg-green-50 p-4 rounded-lg">
-                    <div className="font-medium text-green-900">File Organization</div>
+                    <div className="font-medium text-green-900">Book Organization</div>
                     <div className="text-sm text-green-700 mt-1">
-                      • Files stored in user folders<br/>
-                      • Unique filenames prevent conflicts<br/>
-                      • Metadata stored separately<br/>
-                      • Efficient bulk operations
+                      • Books categorized by genre<br/>
+                      • Unique book identifiers<br/>
+                      • Rich metadata support<br/>
+                      • AI-powered recommendations
                     </div>
                   </div>
                 </div>
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">File Processing Pipeline</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">Book Management Pipeline</h3>
                 <div className="bg-gray-50 p-6 rounded-lg">
                   <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4">
                     <div className="flex flex-col items-center">
                       <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-2">
                         <span className="text-blue-600 font-bold">1</span>
                       </div>
-                      <div className="text-sm text-gray-600 text-center">File Upload</div>
+                      <div className="text-sm text-gray-600 text-center">Book Entry</div>
                     </div>
                     <svg className="w-6 h-6 text-gray-400 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -397,7 +405,7 @@ export default function ReadmePage({ user, onSignOut }: ReadmePageProps) {
                       <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-2">
                         <span className="text-blue-600 font-bold">3</span>
                       </div>
-                      <div className="text-sm text-gray-600 text-center">Storage</div>
+                      <div className="text-sm text-gray-600 text-center">Database</div>
                     </div>
                     <svg className="w-6 h-6 text-gray-400 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -406,7 +414,7 @@ export default function ReadmePage({ user, onSignOut }: ReadmePageProps) {
                       <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-2">
                         <span className="text-green-600 font-bold">4</span>
                       </div>
-                      <div className="text-sm text-gray-600 text-center">Processing</div>
+                      <div className="text-sm text-gray-600 text-center">AI Analysis</div>
                     </div>
                   </div>
                 </div>

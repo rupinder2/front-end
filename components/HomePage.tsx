@@ -3,8 +3,9 @@
 import { User } from '@supabase/supabase-js'
 import { useState } from 'react'
 import Navbar from './Navbar'
-import DocumentDashboard from './DocumentDashboard'
+import LibraryDashboard from './LibraryDashboard'
 import ReadmePage from './ReadmePage'
+import UserCheckouts from './UserCheckouts'
 
 interface HomePageProps {
   user: User
@@ -12,10 +13,10 @@ interface HomePageProps {
 }
 
 export default function HomePage({ user, onSignOut }: HomePageProps) {
-  const [currentView, setCurrentView] = useState<'documents' | 'readme'>('documents')
+  const [currentView, setCurrentView] = useState<'library' | 'checkouts' | 'readme'>('library')
 
   const handleViewChange = (view: string) => {
-    setCurrentView(view as 'documents' | 'readme')
+    setCurrentView(view as 'library' | 'checkouts' | 'readme')
   }
 
   return (
@@ -28,10 +29,16 @@ export default function HomePage({ user, onSignOut }: HomePageProps) {
       />
 
       {/* Main Content */}
-      {currentView === 'documents' ? (
+      {currentView === 'library' ? (
         <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
           <div className="px-4 py-6 sm:px-0">
-            <DocumentDashboard />
+            <LibraryDashboard />
+          </div>
+        </main>
+      ) : currentView === 'checkouts' ? (
+        <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+          <div className="px-4 py-6 sm:px-0">
+            <UserCheckouts />
           </div>
         </main>
       ) : (
