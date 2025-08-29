@@ -93,18 +93,15 @@ export default function DocumentUpload({ onUploadComplete }: DocumentUploadProps
     e.stopPropagation()
   }
 
-  const handleDrop = (e: React.DragEvent) => {
+  const handleDrop = async (e: React.DragEvent) => {
     e.preventDefault()
     e.stopPropagation()
     
     const files = e.dataTransfer.files
     if (files.length > 0) {
       const file = files[0]
-      // Simulate file input change
-      const event = {
-        target: { files: [file] }
-      } as React.ChangeEvent<HTMLInputElement>
-      handleFileUpload(event)
+      // Call upload function directly with the dropped file
+      await uploadFile(file)
     }
   }
 
